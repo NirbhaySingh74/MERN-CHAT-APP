@@ -1,9 +1,28 @@
 import express from "express";
 import dotenv from "dotenv";
-
+import cors from "cors";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import authRoutes from "./routes/auth.routes.js";
+import mongoose from "mongoose";
 const app = express();
-
+app.use(cors());
+app.use(bodyParser.json());
+app.use(cookieParser());
 dotenv.config();
-app.listen(5000, () => {
-  console.log("server is running on port 5000");
+const PORT = process.env.PORT || 7000;
+app.get("/", (req, res) => {
+  res.send("Hello");
 });
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("mongodb connected");
+    app.listen(PORT, () => {
+      console.log(`server is running on PORT ${PORT}`);
+    });
+  })
+  .catch((err) => console.log(err));
+
+app.use("/api/auth", authRoutes);
