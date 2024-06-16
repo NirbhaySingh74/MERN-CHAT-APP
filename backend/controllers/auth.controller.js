@@ -40,7 +40,31 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  res.status(200).json({ name: "Nirbhay Singh login successfully" });
+  try {
+    const { username, password } = req.body;
+
+    const user = await User.findOne({ username });
+    // console.log(user);
+
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      user.password || ""
+    );
+    if (!user || !isPasswordCorrect) {
+      return res.status(400).json({ error: "Invalid username or password" });
+    }
+
+    generateTokenAndSetCookie(user._id, res);
+    res.status(200).json({
+      _id: user._id,
+      fullName: user.fullName,
+      username: user.username,
+      profilePic: user.profilePic,
+    });
+  } catch (error) {
+    console.log("Error in signup controller", error.message);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 export const logout = async (req, res) => {
