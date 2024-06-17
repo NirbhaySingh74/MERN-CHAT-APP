@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import mongoose from "mongoose";
+import messageRoutes from "./routes/message.routes.js";
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -26,3 +27,4 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
