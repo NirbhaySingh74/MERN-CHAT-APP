@@ -1,6 +1,7 @@
 import { useState } from "react";
 import GenderCheckbox from "./GenderCheckbox";
 import { Link } from "react-router-dom";
+import useSignup from "../../hooks/useSignup";
 
 const SignUp = () => {
   const initialValue = {
@@ -10,7 +11,7 @@ const SignUp = () => {
     confirmPassword: "",
     gender: "",
   };
-
+  const { loading, signup } = useSignup();
   const [inputs, setInputs] = useState(initialValue);
 
   const handleChange = (event) => {
@@ -28,10 +29,10 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    console.log("Form submitted", inputs);
+    await signup(inputs);
+    // console.log("Form submitted", inputs);
     setInputs(initialValue);
   };
 
@@ -69,7 +70,7 @@ const SignUp = () => {
               type="text"
               name="username"
               placeholder="johndoe"
-              className="w-full input input-bordered h-10 bg-slate-900"
+              className="w-full input input-bordered h-10 bg-slate-900 text-slate-300"
               value={inputs.username}
               onChange={handleChange}
             />
@@ -85,7 +86,7 @@ const SignUp = () => {
               type="password"
               name="password"
               placeholder="Enter Password"
-              className="w-full input input-bordered h-10 bg-slate-900"
+              className="w-full input input-bordered h-10 bg-slate-900 text-slate-300"
               value={inputs.password}
               onChange={handleChange}
             />
@@ -101,7 +102,7 @@ const SignUp = () => {
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
-              className="w-full input input-bordered h-10 bg-slate-900"
+              className="w-full input input-bordered h-10 bg-slate-900 text-slate-300"
               value={inputs.confirmPassword}
               onChange={handleChange}
             />
