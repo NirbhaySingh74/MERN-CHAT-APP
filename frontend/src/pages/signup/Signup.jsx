@@ -54,7 +54,7 @@ const SignUp = () => {
               type="text"
               name="fullName"
               placeholder="John Doe"
-              className="w-full input input-bordered h-10 bg-slate-900"
+              className="w-full input input-bordered h-10 bg-slate-900 text-slate-300"
               value={inputs.fullName}
               onChange={handleChange}
             />
@@ -124,8 +124,13 @@ const SignUp = () => {
             <button
               type="submit"
               className="btn btn-block btn-sm mt-2 border border-slate-700"
+              disabled={loading}
             >
-              Sign Up
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </div>
         </form>
