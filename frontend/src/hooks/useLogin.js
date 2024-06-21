@@ -7,6 +7,10 @@ const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
   const login = async ({ username, password }) => {
+    if (!username || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
     setLoading(true);
     try {
       const res = await axios.post(
@@ -19,14 +23,19 @@ const useLogin = () => {
         }
       );
       const { data } = res;
-      console.log(data);
+      console.log(res);
       if (data.error) {
         throw new Error(data.error);
       }
       localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
     } catch (error) {
-      toast.error(error.message);
+      if (error.response.data.error) {
+        toast.error(error.response.data.error);
+      } else {
+        ``;
+        toast.error(error.message);
+      }
     } finally {
       setLoading(false);
     }
