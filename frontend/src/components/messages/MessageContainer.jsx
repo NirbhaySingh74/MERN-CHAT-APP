@@ -6,7 +6,7 @@ import useConversation from "../../zustand/useConversation";
 const MessageContainer = () => {
   const { selectedConversation } = useConversation();
 
-  console.log("selectedConver", selectedConversation);
+  // console.log("selectedConver", selectedConversation);
 
   return (
     <div className="md:min-w-[450px] flex flex-col">
