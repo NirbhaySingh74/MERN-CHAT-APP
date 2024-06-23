@@ -7,7 +7,8 @@ import authRoutes from "./routes/auth.routes.js";
 import mongoose from "mongoose";
 import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
-const app = express();
+import { app, server } from "./socket/socket.js";
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -21,7 +22,7 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("mongodb connected");
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`server is running on PORT ${PORT}`);
     });
   })
