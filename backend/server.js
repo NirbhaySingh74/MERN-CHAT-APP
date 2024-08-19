@@ -10,12 +10,23 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import { app, server } from "./socket/socket.js";
 
-app.use(cors());
+// Load environment variables
+dotenv.config();
+
+// Restrict CORS to only the specified frontend URL
+app.use(
+  cors({
+    origin: "https://chatify-teal.vercel.app",
+    credentials: true, // Allow cookies to be sent with requests
+  })
+);
+
 app.use(bodyParser.json());
 app.use(cookieParser());
-dotenv.config();
+
 const PORT = process.env.PORT || 7000;
 
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -26,10 +37,12 @@ mongoose
   })
   .catch((err) => console.log(err));
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
+// Root route
 app.get("/", (req, res) => {
   res.json({ message: "deployed" });
 });
