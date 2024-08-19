@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
-
+const apiurl = import.meta.env.VITE_API_URL;
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
@@ -14,7 +14,7 @@ const useLogin = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "/api/auth/login",
+        `${apiurl}/api/auth/login`,
         { username, password },
         {
           headers: {
