@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules ./backend/server.js",
-    "start": "node ./backend/server.js",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
