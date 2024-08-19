@@ -1,5 +1,3 @@
-import path from "path";
-import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -14,12 +12,7 @@ import { app, server } from "./socket/socket.js";
 dotenv.config();
 
 // Restrict CORS to only the specified frontend URL
-app.use(
-  cors({
-    origin: "*",
-    credentials: true, // Allow cookies to be sent with requests
-  })
-);
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(cookieParser());
