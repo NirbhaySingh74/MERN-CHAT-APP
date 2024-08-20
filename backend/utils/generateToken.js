@@ -4,13 +4,12 @@ export const generateTokenAndSetCookie = (userId, res) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: "15d",
   });
+  console.log("token", token);
 
   res.cookie("jwt", token, {
-    maxAge: 15 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    sameSite: "strict",
+    maxAge: 15 * 24 * 60 * 60 * 1000, //MS
+    httpOnly: true, //prevent XSS attacks cross-site request forgery attacks
+    sameSite: "strict", // CSRF attacks cross-site request forgery attacks
     secure: process.env.NODE_ENV !== "development",
-    domain: "https://api-chat-app-six.vercel.app/", // Ensure this matches your deployment domain
-    path: "/", // Set to the root path by default
   });
 };

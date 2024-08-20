@@ -14,7 +14,7 @@ dotenv.config();
 // Restrict CORS to only the specified frontend URL
 app.use(
   cors({
-    origin: "https://chatify-teal.vercel.app/",
+    origin: "https://chatify-teal.vercel.app",
     credentials: true,
   })
 );
