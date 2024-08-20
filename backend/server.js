@@ -12,7 +12,12 @@ import { app, server } from "./socket/socket.js";
 dotenv.config();
 
 // Restrict CORS to only the specified frontend URL
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://chatify-teal.vercel.app/",
+    credentials: true,
+  })
+);
 
 app.use(bodyParser.json());
 app.use(cookieParser());

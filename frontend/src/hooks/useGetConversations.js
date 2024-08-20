@@ -10,6 +10,8 @@ const useGetConversations = () => {
     setLoading(true);
     try {
       const res = await axios.get(`${apiurl}/api/users`);
+      console.log("res - ", res);
+
       const { data } = res;
       if (data.error) {
         throw new Error(data.error);
